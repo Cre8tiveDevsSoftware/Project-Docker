@@ -1,13 +1,15 @@
 version: "3.7"
 services:
   api_service:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     restart: always
     ports:
       - 8080:8080
     depends_on:
       - mysql_db
-    command: sh -c './wait-for mysql_db:3306 -- npm start'
+    command: ["java", "-jar", "/app/eventpass.jar"]
   mysql_db:
     image: "mysql:8.0"
     restart: always
